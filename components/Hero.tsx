@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import HeroNav from "./HeroNav";
 
 export default function Hero() {
   return (
@@ -14,14 +13,6 @@ export default function Hero() {
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-ink/55" />
-      </div>
-
-      {/* Nav — padded down so it sits under the fixed Header */}
-      <div
-        className="relative z-10"
-        style={{ paddingTop: "var(--header-offset, 108px)" }}
-      >
-        <HeroNav />
       </div>
 
       {/* Bottom content block — wordmark + tagline share the same baseline */}
