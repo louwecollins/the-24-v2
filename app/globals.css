@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Instrument Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: "Hubot Sans", "Inter", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html,
+body {
+  background: #ffffff;
+  color: #030003;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display utility — Instrument Serif, editorial scale */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+/* Eyebrow label style (uppercase, tracked) */
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Pill button defaults */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+}
+
+.pill-dark {
+  background: #030003;
+  color: #ffffff;
+}
+.pill-dark:hover { background: #1a1612; }
+
+.pill-light {
+  background: #ffffff;
+  color: #030003;
+}
+.pill-light:hover { background: #f2f2f2; }
+
+.pill-outline-light {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+.pill-outline-light:hover { background: #ffffff; color: #030003; }
+
+.pill-outline-dark {
+  background: transparent;
+  color: #030003;
+  border: 1px solid #030003;
+}
+.pill-outline-dark:hover { background: #030003; color: #ffffff; }
+
+/* Hide scrollbar on horizontal strips */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Hairline helpers */
+.hairline-t { border-top: 1px solid #030003; }
+.hairline-b { border-bottom: 1px solid #030003; }
+.hairline-r { border-right: 1px solid #030003; }
+.hairline-l { border-left: 1px solid #030003; }
