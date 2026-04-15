@@ -128,18 +128,17 @@ function AccordionRow({
   isFirst: boolean;
 }) {
   return (
-    <div
-      className={`relative ${!isFirst ? "hairline-t" : ""} transition-colors duration-[600ms] ease-luxe ${
-        isOpen ? "bg-ink" : "bg-bone"
-      }`}
-    >
+    <div className={`relative ${!isFirst ? "hairline-t" : ""}`}>
+      {/* Button — only element that transitions background color */}
       <button
         onClick={onClick}
         aria-expanded={isOpen}
-        className="group flex w-full items-center justify-between gap-6 px-6 py-8 text-left md:px-10 md:py-10"
+        className={`group flex w-full items-center justify-between gap-6 px-6 py-8 text-left transition-colors duration-[450ms] ease-luxe md:px-10 md:py-10 ${
+          isOpen ? "bg-ink" : "bg-bone"
+        }`}
       >
         <h3
-          className="font-display leading-none transition-colors duration-[600ms] ease-luxe"
+          className="font-display leading-none transition-colors duration-[450ms] ease-luxe"
           style={{
             fontSize: "clamp(1.75rem, 3.4vw, 3.25rem)",
             letterSpacing: "-0.02em",
@@ -150,7 +149,7 @@ function AccordionRow({
         </h3>
         <span
           aria-hidden
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-[600ms] ease-luxe ${
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-[450ms] ease-luxe ${
             isOpen
               ? "rotate-45 border-white/50 text-white"
               : "rotate-0 border-ink/30 text-ink group-hover:border-ink/70"
@@ -160,10 +159,13 @@ function AccordionRow({
         </span>
       </button>
 
-      {/* Accordion panel — grid-rows 0fr→1fr for smooth CSS height transition */}
+      {/* Panel — permanent bg-ink, only grid-rows animates. No competing color transition. */}
       <div
-        className="grid overflow-hidden transition-[grid-template-rows] duration-[600ms] ease-luxe"
-        style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+        className="grid overflow-hidden bg-ink transition-[grid-template-rows] duration-[450ms] ease-luxe"
+        style={{
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          willChange: "grid-template-rows",
+        }}
       >
         <div className="min-h-0">
           <div className="flex flex-col gap-6 px-6 pb-10 md:px-10 md:pb-12">
@@ -172,7 +174,7 @@ function AccordionRow({
                 src={unit.image}
                 alt={unit.name}
                 className="h-full w-full object-cover"
-                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
