@@ -1,17 +1,39 @@
 "use client";
 
 import Link from "next/link";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { useState } from "react";
 import PromoBar from "./PromoBar";
 
 /**
  * Three-bar header matching Figma 38:3.
  *  - Row 1 (black): promo strip — closable, persists via localStorage
  *  - Row 2 (white): search | THE 24 | phone + CTA
- *  - Row 3 (transparent over hero): primary nav + resident login (lives in Hero)
+ *
+ * Behavior:
+ *  - Fixed at top (overlays content so hero can be true 100svh)
+ *  - Hides on scroll DOWN past 100px, returns on scroll UP
  */
 export default function Header() {
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    if (latest > prev && latest > 120) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <motion.header
+      initial={{ y: 0 }}
+      animate={{ y: hidden ? "-100%" : "0%" }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed left-0 right-0 top-0 z-50 w-full"
+    >
       <PromoBar />
 
       {/* Logo bar */}
@@ -46,7 +68,7 @@ export default function Header() {
           </Link>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
 
