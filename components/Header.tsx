@@ -1,29 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import PromoBar from "./PromoBar";
 
 /**
  * Three-bar header matching Figma 38:3.
- *  - Row 1 (black): promo strip
+ *  - Row 1 (black): promo strip — closable, persists via localStorage
  *  - Row 2 (white): search | THE 24 | phone + CTA
- *  - Row 3 (transparent over hero): primary nav + resident login
- *
- * Rows 1 + 2 are solid; Row 3 sits as the top edge of the hero.
+ *  - Row 3 (transparent over hero): primary nav + resident login (lives in Hero)
  */
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* Promo bar */}
-      <div className="flex h-[44px] items-center justify-center bg-ink px-4 text-center text-white">
-        <p className="font-sans text-[13px] tracking-wide sm:text-[14px]">
-          MOVE IN SPECIAL UP TO 4 WEEKS FREE
-          <span className="mx-3 opacity-40">|</span>
-          <Link href="/contact" className="underline underline-offset-[3px] hover:no-underline">
-            CONTACT US
-          </Link>
-          <span className="ml-2">→</span>
-        </p>
-      </div>
+      <PromoBar />
 
       {/* Logo bar */}
       <div className="flex h-[64px] items-center justify-between border-b border-ink/10 bg-paper px-6 md:px-16">
