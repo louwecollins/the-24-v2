@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 
 // Right side of the "Why 24" split — accordion of unit types.
-// Only one item can be open at a time. Click to open, click again to close.
+// Uses the grid-template-rows 0fr→1fr trick for a buttery smooth, pure-CSS
+// height transition. Content is always mounted (no AnimatePresence flicker),
+// just clipped by the grid row when closed.
 
 type UnitRow = {
   name: string;
@@ -48,12 +49,8 @@ const UNITS: UnitRow[] = [
 ];
 
 export default function WhyTwentyFour() {
-  // First item open by default — matches the Figma intent of a featured unit at top.
+  // First item open by default — matches the Figma featured-unit intent.
   const [openIndex, setOpenIndex] = useState<number>(0);
-
-  const toggle = (i: number) => {
-    setOpenIndex((current) => (current === i ? -1 : i));
-  };
 
   return (
     <section className="hairline-t hairline-b bg-bone">
@@ -107,7 +104,9 @@ export default function WhyTwentyFour() {
               key={unit.name}
               unit={unit}
               isOpen={openIndex === i}
-              onClick={() => toggle(i)}
+              onClick={() =>
+                setOpenIndex((current) => (current === i ? -1 : i))
+              }
               isFirst={i === 0}
             />
           ))}
@@ -130,7 +129,7 @@ function AccordionRow({
 }) {
   return (
     <div
-      className={`relative ${!isFirst ? "hairline-t" : ""} transition-colors duration-500 ease-luxe ${
+      className={`relative ${!isFirst ? "hairline-t" : ""} transition-colors duration-[600ms] ease-luxe ${
         isOpen ? "bg-ink" : "bg-bone"
       }`}
     >
@@ -140,7 +139,7 @@ function AccordionRow({
         className="group flex w-full items-center justify-between gap-6 px-6 py-8 text-left md:px-10 md:py-10"
       >
         <h3
-          className="font-display leading-none transition-colors duration-500 ease-luxe"
+          className="font-display leading-none transition-colors duration-[600ms] ease-luxe"
           style={{
             fontSize: "clamp(1.75rem, 3.4vw, 3.25rem)",
             letterSpacing: "-0.02em",
@@ -151,7 +150,7 @@ function AccordionRow({
         </h3>
         <span
           aria-hidden
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-500 ease-luxe ${
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-[600ms] ease-luxe ${
             isOpen
               ? "rotate-45 border-white/50 text-white"
               : "rotate-0 border-ink/30 text-ink group-hover:border-ink/70"
@@ -161,48 +160,36 @@ function AccordionRow({
         </span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="panel"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{
-              height: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-              opacity: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-            }}
-            className="overflow-hidden"
-          >
-            <div className="flex flex-col gap-6 px-6 pb-10 md:px-10 md:pb-12">
-              <div className="relative h-[280px] w-full overflow-hidden md:h-[360px]">
-                {/* Keyed by image so framer does a fresh fade when it changes */}
-                <motion.img
-                  key={unit.image}
-                  src={unit.image}
-                  alt={unit.name}
-                  initial={{ scale: 1.06, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <p className="font-sans text-[14px] leading-relaxed text-white/80 md:text-[15px]">
-                  {unit.detail}
-                </p>
-                <Link
-                  href={unit.href}
-                  className="inline-flex shrink-0 items-center gap-2 font-sans text-[12px] uppercase tracking-wide text-white underline underline-offset-[4px] transition-opacity hover:opacity-75 md:text-[13px]"
-                >
-                  Explore {unit.name}
-                  <span aria-hidden>→</span>
-                </Link>
-              </div>
+      {/* Accordion panel — grid-rows 0fr→1fr for smooth CSS height transition */}
+      <div
+        className="grid overflow-hidden transition-[grid-template-rows] duration-[600ms] ease-luxe"
+        style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+      >
+        <div className="min-h-0">
+          <div className="flex flex-col gap-6 px-6 pb-10 md:px-10 md:pb-12">
+            <div className="relative h-[280px] w-full overflow-hidden md:h-[360px]">
+              <img
+                src={unit.image}
+                alt={unit.name}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <p className="font-sans text-[14px] leading-relaxed text-white/80 md:text-[15px]">
+                {unit.detail}
+              </p>
+              <Link
+                href={unit.href}
+                className="inline-flex shrink-0 items-center gap-2 font-sans text-[12px] uppercase tracking-wide text-white underline underline-offset-[4px] transition-opacity hover:opacity-75 md:text-[13px]"
+              >
+                Explore {unit.name}
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
