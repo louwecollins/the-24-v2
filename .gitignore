@@ -8,3 +8,7 @@ dev-server.log
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts
+
+# Personal working notes — not for the repo
+TASK_HISTORY.md
+.claude/
