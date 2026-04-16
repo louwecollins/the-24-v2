@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PromoModal from "@/components/PromoModal";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,8 +23,13 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        {/* Figma MCP capture script — only activates when URL contains #figmacapture=... */}
+        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
       </head>
-      <body className="bg-paper text-ink antialiased">{children}</body>
+      <body className="bg-paper text-ink antialiased">
+        {children}
+        <PromoModal />
+      </body>
     </html>
   );
 }

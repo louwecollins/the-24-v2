@@ -1,32 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePromoState } from "@/hooks/usePromoState";
 
-const STORAGE_KEY = "the24-promo-dismissed";
-
+/**
+ * Collapsed banner form of the promo announcement. Only renders when the
+ * shared state is "banner" (i.e., modal has been dismissed but the user
+ * hasn't closed the banner too).
+ */
 export default function PromoBar() {
-  // Start hidden during SSR/initial render, show only after we've checked storage.
-  // Prevents a flash of the bar when it's already been dismissed.
-  const [visible, setVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const { state, setState } = usePromoState();
 
-  useEffect(() => {
-    const dismissed =
-      typeof window !== "undefined" &&
-      window.localStorage.getItem(STORAGE_KEY) === "1";
-    setVisible(!dismissed);
-    setMounted(true);
-  }, []);
-
-  const dismiss = () => {
-    setVisible(false);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, "1");
-    } catch {}
-  };
-
-  if (!mounted || !visible) return null;
+  if (state !== "banner") return null;
 
   return (
     <div className="relative flex min-h-[44px] items-center justify-center bg-ink px-10 text-center text-white sm:px-12">
@@ -43,9 +28,9 @@ export default function PromoBar() {
         <span className="ml-1 sm:ml-2">→</span>
       </p>
       <button
-        onClick={dismiss}
+        onClick={() => setState("gone")}
         aria-label="Dismiss announcement"
-        className="absolute right-3 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white md:right-4"
+        className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white md:right-4"
       >
         <svg
           width="14"
