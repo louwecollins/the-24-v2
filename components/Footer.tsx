@@ -5,16 +5,14 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-paper text-ink">
-      {/* Huge wordmark block — fills the full width as an editorial bookend */}
+      {/* Huge wordmark block — aligned to the same px-6/md:px-16 gutter as the
+          link grid below, so it reads as a proper column and not a bleed. */}
       <div className="hairline-b overflow-hidden px-6 pt-20 md:px-16 md:pt-24">
         <h2
           className="pointer-events-none block select-none whitespace-nowrap font-display leading-[0.82] text-ink"
           style={{
-            // Sized to span the full container width in Instrument Serif.
-            fontSize: "clamp(8rem, 42vw, 60rem)",
-            letterSpacing: "-0.06em",
-            marginLeft: "-0.045em", // pull the T's left bearing to the edge
-            marginRight: "-0.02em", // let the 4 touch the right edge
+            fontSize: "clamp(6rem, 36vw, 48rem)",
+            letterSpacing: "-0.025em", // natural display kerning, not squeezed
           }}
         >
           THE 24
