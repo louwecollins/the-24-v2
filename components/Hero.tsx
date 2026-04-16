@@ -5,13 +5,26 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-ink text-white">
-      {/* Background image */}
+      {/* Background video — aerial drone footage, with image poster fallback */}
       <div className="absolute inset-0">
-        <img
-          src="/images/campus-twilight.jpg"
-          alt="The 24 at twilight"
-          className="h-full w-full object-cover"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/images/campus-twilight.jpg"
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/images/hero-drone.mp4" type="video/mp4" />
+          {/* Graceful fallback for browsers that don't support the tag */}
+          <img
+            src="/images/campus-twilight.jpg"
+            alt="The 24 at twilight"
+            className="h-full w-full object-cover"
+          />
+        </video>
         <div className="absolute inset-0 bg-ink/55" />
       </div>
 
