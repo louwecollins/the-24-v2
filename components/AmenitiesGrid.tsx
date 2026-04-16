@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 
-// Editorial amenity cards on a padded 3×2 grid with gaps —
-// matches the breathing room of the Welcome / DualImage section above.
+// Editorial amenity cards on a padded 3×2 grid with gaps.
+// Header typography + padding match the left column of Why 24 so
+// both sections feel like siblings.
 type Amenity = {
   label: string;
   image: string;
@@ -46,10 +47,10 @@ const AMENITIES: Amenity[] = [
 export default function AmenitiesGrid() {
   return (
     <section className="hairline-b bg-paper">
-      {/* Section header — padded container so it lives inside the same gutter as the grid */}
-      <div className="mx-auto max-w-page px-6 py-20 md:px-16 md:py-24">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="flex flex-col gap-4">
+      {/* Full-width container with matching px/py as Why 24's left column */}
+      <div className="px-6 py-20 md:px-16 md:py-32">
+        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between md:gap-12">
+          <div className="flex flex-col gap-8">
             <div className="flex items-center gap-3">
               <span className="inline-block h-[10px] w-[10px] rounded-full bg-ink" />
               <span className="font-sans text-[14px] uppercase tracking-wide text-ink md:text-[16px]">
@@ -59,7 +60,7 @@ export default function AmenitiesGrid() {
             <h2
               className="max-w-[880px] font-display leading-[1.04] text-ink"
               style={{
-                fontSize: "clamp(2.25rem, 5.5vw, 5rem)",
+                fontSize: "clamp(2.5rem, 6.5vw, 6rem)",
                 letterSpacing: "-0.02em",
               }}
             >
@@ -75,7 +76,7 @@ export default function AmenitiesGrid() {
         </div>
 
         {/* Grid of cards — gaps between, padded on all sides by the outer container */}
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-16 md:grid-cols-3 md:gap-6">
+        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-20 md:grid-cols-3 md:gap-6">
           {AMENITIES.map((item) => (
             <AmenityCard key={item.label} item={item} />
           ))}
