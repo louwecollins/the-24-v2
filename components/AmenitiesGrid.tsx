@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 
-// Editorial magazine grid — continues the hairline-border aesthetic
+// Editorial amenity cards on a padded 3×2 grid with gaps —
+// matches the breathing room of the Welcome / DualImage section above.
 type Amenity = {
   label: string;
   image: string;
   description: string;
-  span?: "wide" | "tall" | "default";
 };
 
 const AMENITIES: Amenity[] = [
@@ -15,7 +15,6 @@ const AMENITIES: Amenity[] = [
     label: "Two Resort Pools",
     image: "/images/pool-day.jpg",
     description: "Sunlit lap pool and shaded leisure pool, open year-round.",
-    span: "wide",
   },
   {
     label: "Two Fitness Centers",
@@ -31,7 +30,6 @@ const AMENITIES: Amenity[] = [
     label: "Rooftop Fire Pits",
     image: "/images/outdoor-lounge.jpg",
     description: "Unobstructed San Gabriel views with lounge seating.",
-    span: "tall",
   },
   {
     label: "Private Screening",
@@ -48,59 +46,68 @@ const AMENITIES: Amenity[] = [
 export default function AmenitiesGrid() {
   return (
     <section className="hairline-b bg-paper">
-      {/* Section header */}
-      <div className="hairline-b flex flex-col gap-6 px-6 py-16 md:flex-row md:items-end md:justify-between md:px-16 md:py-20">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <span className="inline-block h-[10px] w-[10px] rounded-full bg-ink" />
-            <span className="font-sans text-[14px] uppercase tracking-wide text-ink md:text-[16px]">
-              Amenities
-            </span>
+      {/* Section header — padded container so it lives inside the same gutter as the grid */}
+      <div className="mx-auto max-w-page px-6 py-20 md:px-16 md:py-24">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <span className="inline-block h-[10px] w-[10px] rounded-full bg-ink" />
+              <span className="font-sans text-[14px] uppercase tracking-wide text-ink md:text-[16px]">
+                Amenities
+              </span>
+            </div>
+            <h2
+              className="max-w-[880px] font-display leading-[1.04] text-ink"
+              style={{
+                fontSize: "clamp(2.25rem, 5.5vw, 5rem)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              A resort, quietly hidden inside a neighborhood.
+            </h2>
           </div>
-          <h2
-            className="max-w-[880px] font-display leading-[1.04] text-ink"
-            style={{ fontSize: "clamp(2.25rem, 5.5vw, 5rem)", letterSpacing: "-0.02em" }}
+          <Link
+            href="/amenities"
+            className="pill pill-outline-dark self-start md:self-end"
           >
-            A resort, quietly hidden inside a neighborhood.
-          </h2>
+            See All Amenities
+          </Link>
         </div>
-        <Link href="/amenities" className="pill pill-outline-dark self-start md:self-end">
-          See All Amenities
-        </Link>
-      </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2">
-        {AMENITIES.map((item, i) => (
-          <AmenityCard key={item.label} item={item} index={i} />
-        ))}
+        {/* Grid of cards — gaps between, padded on all sides by the outer container */}
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-16 md:grid-cols-3 md:gap-6">
+          {AMENITIES.map((item) => (
+            <AmenityCard key={item.label} item={item} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function AmenityCard({ item, index }: { item: Amenity; index: number }) {
-  // First item spans 2 cols on md+, last-col items keep their row
-  const colSpan = index === 0 ? "md:col-span-2" : "";
+function AmenityCard({ item }: { item: Amenity }) {
   return (
-    <div className={`group relative hairline-r hairline-b overflow-hidden ${colSpan}`}>
-      <div className="relative h-[340px] w-full overflow-hidden md:h-[420px]">
+    <div className="group relative overflow-hidden">
+      <div className="relative h-[400px] w-full overflow-hidden md:h-[460px]">
         <img
           src={item.image}
           alt={item.label}
           className="h-full w-full object-cover transition-transform duration-[900ms] ease-luxe group-hover:scale-[1.04]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/15 to-transparent" />
       </div>
       <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-6 p-6 text-white md:p-8">
         <div className="flex flex-col gap-2">
           <h3
             className="font-display leading-none text-white"
-            style={{ fontSize: "clamp(1.5rem, 2.2vw, 2.25rem)", letterSpacing: "-0.01em" }}
+            style={{
+              fontSize: "clamp(1.5rem, 2.1vw, 2rem)",
+              letterSpacing: "-0.01em",
+            }}
           >
             {item.label}
           </h3>
-          <p className="max-w-[380px] font-sans text-[13px] leading-snug text-white/85 md:text-[15px]">
+          <p className="max-w-[380px] font-sans text-[13px] leading-snug text-white/85 md:text-[14px]">
             {item.description}
           </p>
         </div>
