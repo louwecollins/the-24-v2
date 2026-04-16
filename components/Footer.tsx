@@ -12,8 +12,8 @@ export default function Footer() {
           style={{
             // Each segment: mobile clamp floor / viewport-scaled / desktop cap.
             // At 30vw, "THE 24" in Instrument Serif lands ~edge-to-edge.
-            fontSize: "clamp(6rem, 30vw, 44rem)",
-            letterSpacing: "-0.055em",
+            fontSize: "clamp(7rem, 36vw, 52rem)",
+            letterSpacing: "-0.06em",
             marginLeft: "-0.04em", // pull the T's left bearing to the edge
           }}
         >
