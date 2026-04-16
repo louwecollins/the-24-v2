@@ -54,15 +54,15 @@ export default function PromoModal() {
           aria-labelledby="promo-modal-title"
         >
           <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
+            exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[660px] overflow-hidden bg-paper shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)]"
+            className="relative w-full max-w-[480px] overflow-hidden bg-paper shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)]"
           >
             {/* Image header */}
-            <div className="relative h-[220px] w-full overflow-hidden sm:h-[280px] md:h-[320px]">
+            <div className="relative h-[180px] w-full overflow-hidden sm:h-[200px]">
               <img
                 src="/images/campus-twilight.jpg"
                 alt=""
@@ -76,11 +76,11 @@ export default function PromoModal() {
             <button
               onClick={dismiss}
               aria-label="Close"
-              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-ink/30 text-white backdrop-blur-md transition-colors hover:bg-ink/60 md:h-11 md:w-11"
+              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-ink/30 text-white backdrop-blur-md transition-colors hover:bg-ink/60"
             >
               <svg
-                width="16"
-                height="16"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -93,19 +93,19 @@ export default function PromoModal() {
               </svg>
             </button>
 
-            {/* Content */}
-            <div className="flex flex-col gap-6 px-8 py-10 md:gap-7 md:px-12 md:py-12">
+            {/* Content — centered */}
+            <div className="flex flex-col items-center gap-5 px-8 py-8 text-center md:px-10 md:py-10">
               <div className="flex items-center gap-3">
-                <span className="inline-block h-[9px] w-[9px] rounded-full bg-ink" />
-                <span className="font-sans text-[12px] uppercase tracking-wide text-ink">
+                <span className="inline-block h-[8px] w-[8px] rounded-full bg-ink" />
+                <span className="font-sans text-[11px] uppercase tracking-wide text-ink">
                   Now Pre-Leasing
                 </span>
               </div>
               <h2
                 id="promo-modal-title"
-                className="font-display leading-[0.98] text-ink"
+                className="font-display leading-[1.02] text-ink"
                 style={{
-                  fontSize: "clamp(2.25rem, 5.5vw, 4rem)",
+                  fontSize: "clamp(1.75rem, 4.5vw, 2.75rem)",
                   letterSpacing: "-0.02em",
                 }}
               >
@@ -113,11 +113,11 @@ export default function PromoModal() {
                 <br />
                 Move in on us.
               </h2>
-              <p className="max-w-[480px] font-sans text-[15px] leading-[1.6] text-ink md:text-[16px]">
+              <p className="max-w-[380px] font-sans text-[14px] leading-[1.55] text-ink md:text-[15px]">
                 Studio to three-bedroom residences from $2,250/mo. South Tower
                 now leasing — up to four weeks free with a 12-month lease.
               </p>
-              <div className="mt-1 flex flex-wrap items-center gap-3">
+              <div className="mt-1 flex flex-wrap items-center justify-center gap-3">
                 <Link
                   href="/contact"
                   onClick={dismiss}
