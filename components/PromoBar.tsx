@@ -29,17 +29,18 @@ export default function PromoBar() {
   if (!mounted || !visible) return null;
 
   return (
-    <div className="relative flex min-h-[44px] items-center justify-center bg-ink px-12 text-center text-white">
-      <p className="font-sans text-[12px] tracking-wide sm:text-[13px] md:text-[14px]">
-        MOVE IN SPECIAL UP TO 4 WEEKS FREE
-        <span className="mx-3 opacity-40">|</span>
+    <div className="relative flex min-h-[44px] items-center justify-center bg-ink px-10 text-center text-white sm:px-12">
+      <p className="font-sans text-[11px] tracking-wide sm:text-[13px] md:text-[14px]">
+        <span className="hidden sm:inline">MOVE IN SPECIAL UP TO </span>
+        4 WEEKS FREE
+        <span className="mx-2 opacity-40 sm:mx-3">|</span>
         <Link
           href="/contact"
           className="underline underline-offset-[3px] hover:no-underline"
         >
-          CONTACT US
+          CONTACT<span className="hidden sm:inline"> US</span>
         </Link>
-        <span className="ml-2">→</span>
+        <span className="ml-1 sm:ml-2">→</span>
       </p>
       <button
         onClick={dismiss}

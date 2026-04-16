@@ -22,7 +22,7 @@ export default function PageShell({
     <main className="bg-paper text-ink">
       <Header />
 
-      <section className="hairline-b relative overflow-hidden bg-paper pt-[164px]">
+      <section className="hairline-b relative overflow-hidden bg-paper pt-[108px] md:pt-[164px]">
         <div className="flex flex-col gap-10 px-6 pb-24 pt-20 md:px-16 md:pb-32 md:pt-28">
           <div className="flex items-center gap-3">
             <span className="inline-block h-[10px] w-[10px] rounded-full bg-ink" />
