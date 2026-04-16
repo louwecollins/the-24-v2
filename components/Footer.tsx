@@ -10,11 +10,11 @@ export default function Footer() {
         <h2
           className="pointer-events-none block select-none whitespace-nowrap font-display leading-[0.82] text-ink"
           style={{
-            // Each segment: mobile clamp floor / viewport-scaled / desktop cap.
-            // At 30vw, "THE 24" in Instrument Serif lands ~edge-to-edge.
-            fontSize: "clamp(7rem, 36vw, 52rem)",
+            // Sized to span the full container width in Instrument Serif.
+            fontSize: "clamp(8rem, 42vw, 60rem)",
             letterSpacing: "-0.06em",
-            marginLeft: "-0.04em", // pull the T's left bearing to the edge
+            marginLeft: "-0.045em", // pull the T's left bearing to the edge
+            marginRight: "-0.02em", // let the 4 touch the right edge
           }}
         >
           THE 24
