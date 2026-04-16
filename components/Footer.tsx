@@ -5,11 +5,17 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-paper text-ink">
-      {/* Huge wordmark block */}
+      {/* Huge wordmark block — fills the full width as an editorial bookend */}
       <div className="hairline-b overflow-hidden px-6 pt-20 md:px-16 md:pt-24">
         <h2
-          className="pointer-events-none select-none whitespace-nowrap font-display leading-[0.82] text-ink"
-          style={{ fontSize: "clamp(6rem, 22vw, 24rem)", letterSpacing: "-0.05em" }}
+          className="pointer-events-none block select-none whitespace-nowrap font-display leading-[0.82] text-ink"
+          style={{
+            // Each segment: mobile clamp floor / viewport-scaled / desktop cap.
+            // At 30vw, "THE 24" in Instrument Serif lands ~edge-to-edge.
+            fontSize: "clamp(6rem, 30vw, 44rem)",
+            letterSpacing: "-0.055em",
+            marginLeft: "-0.04em", // pull the T's left bearing to the edge
+          }}
         >
           THE 24
         </h2>
